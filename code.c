@@ -1,46 +1,22 @@
-#include "SeqList.h"
-
-void mune()
-{
-    printf("1.ADD\n");
-    printf("2.DEL\n");
-    printf("3.SERCHED\n");
-    printf("4.CHANGE\n");
-    printf("5.PRINT\n");
-    printf("0.EXIT\n");
-
-}
+#define _CRT_SECURE_NO_WARNINGS 1
+#include "stack.h"
 
 int main()
 {
-    int n;
-    SL m;
+	SL* m;
+	SLinit(&m);
 
-    SL_Init(&m);
+	SLpush(&m, 1);
+	SLpush(&m, 2);
+	SLpush(&m, 3);
+	SLpush(&m, 4);
+	SLpush(&m, 5);
 
-    do
-    {
-        mune();
-        printf("请输入需要进行的操作：");
-        scanf("%d",&n);
-        switch(n)
-        {
-            case 0:
-                    break;
-            case 1:SL_Add(&m);
-                    break;
-            case 2:SL_Del(&m);
-                    break;
-            case 3:SL_searched(&m);
-                    break;
-            case 4:SL_change(&m);
-                    break;
-            case 5:SL_print(&m);
-                    break;
-            default:
-            printf("请重新输入！\n");n = 1;
-        }
-    } while (n);
-    
-    return 0;
+	while (!SLexist(&m))
+	{
+		printf("%d ", SLshow(&m));
+		SLpop(&m);
+	}
+	SLdestory(&m);
+	return 0;
 }
