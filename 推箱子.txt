@@ -1,0 +1,140 @@
+#include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
+
+#define M 10
+
+char ret(int n)
+{
+    switch(n)
+    {
+	case 1:return 'D';
+	case 2:return 'P';
+	case 0:return '*';
+	case 3:return '@';
+    }
+}
+
+void map(int m[M][M])
+{
+    int i,j;
+    for(i = 0 ; i < M ; i++)
+    {
+	for(j = 0 ; j < M ; j++)
+	{
+	    printf("%c ",ret(m[i][j]));
+	}
+	printf("\n");
+    }
+}
+
+void game()
+{
+    int x;
+    int y;
+    int x1 = 4;
+    int y1 = 4;
+    int m[M][M] = {0};
+    for(x = 0 ; x < M ; x++)
+    {
+	for(y = 0 ; y < M ; y++)
+	{
+	    m[x][y] = 0;
+	}
+    }
+    m[0][9] = 3;
+    m[x1][y1] = 2;
+    while(m[x][y] == 0)
+    {
+	x = rand()%10;
+	y = rand()%10;
+	m[x][y] = 1;
+    }
+    while(1)
+    {
+	system("clear");
+	int index;
+	printf("P小人  D箱子  *地板\n");
+	map(m);
+	printf("请输入数字移动小人(4:左走 6:右走 8:上走 2:下走)\n");
+	scanf("%d",&index);
+	switch(index)
+	{
+	    case 4:if(y1 == 0)
+		   {
+		   }else{
+		    m[x1][y1] = 0;
+		    y1--;
+		    m[x1][y1] = 2;
+		   };break;
+	    case 8:if(x1 == 0)
+		   {
+		   }else{   
+		    m[x1][y1] = 0;
+		    x1--;
+		    m[x1][y1] = 2;
+		   };break;
+	    case 6:if(y1 == 9)
+		   {
+		   }else{   
+		    m[x1][y1] = 0;
+		    y1++;
+		    m[x1][y1] = 2;
+		   };break;
+	    case 2:if(x1 == 9)
+		    {
+		    }else{	
+		    m[x1][y1] = 0;
+		    x1++;
+		    m[x1][y1] = 2;
+		    };break;
+	}
+	if(x == x1 && y == y1)
+	{
+	    switch(index)
+	    {
+	    case 4:if(y == 0)
+		   {
+		   }else{
+		    m[x][y] = 2;
+		    y--;
+		    m[x][y] = 1;
+		   };break;
+	    case 8:if(x == 0)
+		   {
+		   }else{   
+		    m[x][y] = 2;
+		    x--;
+		    m[x][y] = 1;
+		   };break;
+	    case 6:if(y == 9)
+		   {
+		   }else{   
+		    m[x][y] = 2;
+		    y++;
+		    m[x][y] = 1;
+		   };break;
+	    case 2:if(x == 9)
+		    {
+		    }else{	
+		    m[x][y] = 2;
+		    x++;
+		    m[x][y] = 1;
+		    };break;
+	    }
+	    if(x == 0 && y == 9)
+	    {
+		printf("恭喜你获得了推箱子游戏的胜利！！！\n");
+		map(m);
+		break;
+	    }
+	}
+    }
+}
+
+int main()
+{
+    srand(time(NULL));
+    game();
+    return 0;
+}
